@@ -1,0 +1,134 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+  	<title>Spring-Boot-Echarts-GL</title>
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+	<th:block  th:include="layout/header :: bootstrapAdmin_css_js"/>
+	<th:block  th:include="layout/header :: echarts_gl_js"/>
+</head>
+<body>
+<div id="wrapper">
+	<nav class="navbar navbar-default navbar-static-top" role="navigation" style="margin-bottom: 0"> 
+				
+		<div class="navbar-header">	
+			<span class="navbar-text label" style="font-size:18px;color:#333333;">ThinkingInGIS</span>
+		</div>
+        <div class="navbar-default sidebar" role="navigation">
+            <div class="sidebar-nav navbar-collapse">
+                <ul class="nav" id="side-menu" >
+                    <li class="sidebar-search">
+                        <div class="input-group custom-search-form">
+                            <input type="text" class="form-control" placeholder="Search..." />
+                            <span class="input-group-btn">
+                            <button class="btn btn-default" type="button">
+                                <i class="fa fa-search"></i>
+                            </button>
+                        </span>
+                        </div>
+                    </li>
+    	            <li>
+                    	<a href="#"><i class="fa fa-dashboard fa-fw"></i> 统计面板</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+	</nav> 
+
+    <div id="page-wrapper">
+	    <div class="row">
+	        <div class="col-lg-12">
+	            <h1 class="page-header">2018年2月北京各区房价均价</h1>
+	        </div>
+	    </div>
+     
+        <div class="row">
+            <div class="col-lg-12">
+                <div class="panel panel-default">
+                    <div class="panel-heading">
+                        <i class="fa fa-bar-chart-o fa-fw"></i> Echarts 三维地图展示
+                    </div>
+                    <div class="panel-body">
+                         <div id="echartGL" class="row" style="height:500px;"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="text-center">
+	<th:block  th:include="layout/footer :: copy" />
+</div>             
+
+<script type="text/javascript">
+$(function(){
+    var omChart;  
+    var omOption;  
+    $.get('./geojson/beijing.json', function (BJjson) {  
+        echarts.registerMap('北京', BJjson);   
+        omChart = echarts.init(document.getElementById('echartGL'));   
+        omOption = {  
+            tooltip: {  
+                trigger: 'item',  
+                formatter: '{b}<br/>{c} (元/㎡)'  
+            },  
+            toolbox: {  
+               show: true,  
+               orient: 'vertical',  
+               left: 'right',  
+               top: 'center',  
+               feature: {  
+                   dataView: {readOnly: false},  
+                   restore: {},  
+                   saveAsImage: {}  
+               }  
+            },  
+            visualMap: {  
+                    min: 20000,  
+                    max: 150000,  
+                    text:['高','低'],  
+                    realtime: false,  
+                    calculable: true,  
+                    inRange: {  
+                        color: ['lightskyblue','yellow', 'orangered'] 
+                    }  
+            }, 
+            series:[  
+                {  
+                	name: '2018年2月北京各区房价均价',  
+                    type: 'map3D',  
+                    map: '北京', // 自定义扩展图表类型  
+                    aspectScale: 0.75, //地图长宽比. default: 0.75  
+                    zoom: 1.0, //控制地图的zoom，动手自己更改下 看看什么效果吧  
+                    roam: true,  
+                    itemStyle:{  
+                        normal:{label:{show:true}},  
+                        emphasis:{label:{show:true}}  
+                    },
+                    data: [
+                        {name:'东城区', value: 109093},  
+                        {name:'西城区', value: 125138},  
+                        {name:'朝阳区', value: 77434},  
+                        {name:'丰台区', value: 59768},  
+                        {name:'石景山区', value: 53599},  
+                        {name:'海淀区', value: 88045},  
+                        {name:'门头沟区', value: 42590},  
+                        {name:'房山区', value: 31563},  
+                        {name:'通州区', value: 39431},  
+                        {name:'顺义区', value: 44019},  
+                        {name:'昌平区', value: 39248},  
+                        {name:'大兴区', value: 43134},  
+                        {name:'怀柔区', value: 33937},  
+                        {name:'平谷区', value: 24629},  
+                        {name:'密云县', value: 25103},  
+                        {name:'延庆县', value: 24408}  
+                    ]
+                }  
+            ]  
+        }  
+        omChart.setOption(omOption);   
+  }); 
+});
+</script>
+</body>
+</html>

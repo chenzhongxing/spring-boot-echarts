@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" 
+	  xmlns:th="http://www.thymeleaf.org" 
+	  xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity4" >
+
+<head >
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+	
+	<th:block th:fragment="echarts_gl_js">
+		<script type="text/javascript" th:src="@{/assets/echartsjs/echarts.min.js}"></script>
+		<script type="text/javascript" th:src="@{/assets/echartsjs/echarts-gl.min.js}"></script>
+	</th:block>
+	
+	<th:block th:fragment="bootstrapAdmin_css_js">
+		<link rel="stylesheet" th:href="@{/assets/bootstrap-admin/css/bootstrap.min.css}"></link>
+		<link rel="stylesheet" th:href="@{/assets/bootstrap-admin/css/metisMenu.min.css}"></link>
+		<link rel="stylesheet" th:href="@{/assets/bootstrap-admin/css/sb-admin-2.css}"></link>
+		<link rel="stylesheet" th:href="@{/assets/bootstrap-admin/css/font-awesome.min.css}"></link>
+		
+		<script type="text/javascript" th:src="@{/assets/bootstrap-admin/js/jquery.min.js}"></script>
+		<script type="text/javascript" th:src="@{/assets/bootstrap-admin/js/bootstrap.min.js}"></script>
+		<script type="text/javascript" th:src="@{/assets/bootstrap-admin/js/metisMenu.min.js}"></script>
+		<script type="text/javascript" th:src="@{/assets/bootstrap-admin/js/sb-admin-2.min.js}"></script>
+	</th:block>
+	
+	<th:block th:fragment="verify_css">
+		<link rel="stylesheet" th:href="@{/assets/verify/verify.css}"></link>
+	</th:block>
+	
+</head>
+
+<body>
+
+</body>
+
+</html>
